@@ -35,7 +35,7 @@ function LinkButtons(props) {
             return (
               <div className="w-full sm:w-1/2 lg:w-1/4 p-1">
               <ButtonItem item="item">
-                <GrayButton url={item['URL']} title={item['ツール名']} summary={item['分類']} />
+                <GrayButton url={item['URL']} title={item['ツール名'] ? item['ツール名']: item['名称']} summary={item['分類']} comment={item['備考']} tag={item['タグ']} />
               </ButtonItem>
               </div>
             )
