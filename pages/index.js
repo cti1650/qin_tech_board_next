@@ -50,7 +50,7 @@ export default function Home() {
         <title>QinTechBoard</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <div className='w-full px-4 mt-4 sticky top-0'>
+      <div className='w-full px-4 mt-4 sticky top-0 bg-black'>
         <input
           type='search'
           className='w-full bg-black focus:bg-gray-900 outline-none rounded-full border border-gray-800 px-4 py-1 text-white'
