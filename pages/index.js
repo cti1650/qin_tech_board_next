@@ -39,11 +39,13 @@ export default function Home() {
         title='ツール＆サービス'
         items={data && (data['data']['ツール＆サービス'] || [])}
         keyword={keyword}
+        size='small'
       ></LinkButtons>
       <LinkButtons
         title='npm module'
         items={data && (data['data']['node.jsモジュール'] || [])}
         keyword={keyword}
+        size='small'
       ></LinkButtons>
       <LinkButtons
         title='記事'

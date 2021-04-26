@@ -10,19 +10,22 @@ const parseTag = (tagStr) => {
           } else {
             return '#' + item.trim();
           }
-        })
-        .join(' ');
+        });
     } else {
-      return '';
+      return [];
     }
   };
 
 function TagList(props) {
-    const { items,keyword } = props;
+  const { items,keyword } = props;
   return (
-    <>
-        {parseTag(props.tag)}
-    </>
+    <div className="flex flex-row flex-wrap space-x-1">
+        {parseTag(props.tag).map(item=>{
+          return (
+            <div className="rounded-sm text-gray-500">{item}</div>
+          )
+        })}
+    </div>
   );
 }
 export default TagList;
