@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import ButtonItem from "./ButtonItem";
 import GrayButton from "./GrayButton";
 import ListTitle from '../title/ListTitle';
+import cc from "classcat";
 
 const SearchItems = (lists, word) => {
   if(!lists){
@@ -26,7 +27,7 @@ const keywordConv = (str) => {
   return rep;
 }
 function LinkButtons(props) {
-  const { items,keyword,title } = props;
+  const { items,keyword,title,size } = props;
   const links = SearchItems(items,keyword);
   if(links.length <= 0){return (<></>)};
   return (
@@ -36,7 +37,12 @@ function LinkButtons(props) {
         {
           links && links.map((item)=>{
             return (
-              <div className="w-full sm:w-1/2 lg:w-1/4 p-1">
+              <div className={cc([
+                "w-full", {
+                  "sm:w-1/2 lg:w-1/4":size==="small",
+                  "lg:w-1/2":size!=="small"
+                },
+                "p-1"])}>
               <ButtonItem item="item">
                 <GrayButton url={item['URL']} title={item['ツール名'] ? item['ツール名']: item['名称']} summary={item['分類']} comment={item['備考']} tag={item['タグ']} />
               </ButtonItem>

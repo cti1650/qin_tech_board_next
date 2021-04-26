@@ -1,26 +1,11 @@
 import Head from 'next/head';
 import useSWR from 'swr';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Layout from '../src/components/layout';
-import SearchLink from '../src/components/data/SearchLink';
-import GrayButton from '../src/components/button/GrayButton';
-import ButtonItem from '../src/components/button/ButtonItem';
 import LinkButtons from '../src/components/button/LinkButtons';
 import ScrollPageTop from '../src/components/tools/ScrollPageTop';
-import GoogleForm from '../src/components/tools/GoogleForm';
-import ListTitle from '../src/components/title/ListTitle';
-import Posts from '../src/components/home/posts';
-import TitleMessage from '../src/components/qin/TitleMessage';
-import MembersTextbox from '../src/components/qin/Textbox';
-import Description from '../src/components/qin/Description';
-import Editarea from '../src/components/qin/Editarea';
-import MemberTag from '../src/components/qin/MemberTag';
-import CircleColor from '../src/components/color/CircleColor';
-
-import axios from 'axios';
 
 export default function Home() {
-  const [items, setItems] = useState([]);
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
   const { data, error } = useSWR(
     'https://script.google.com/macros/s/AKfycbzdElyGY3H5HYcoUKOxOG9-F7LpmwlPe2y13jZv3lskhajjF20A4KiZNT7e6EoMvF2aOQ/exec',
@@ -32,14 +17,6 @@ export default function Home() {
     }
   );
   const [keyword, setKeyword] = useState('');
-  const keywordConv = (str) => {
-    let rep = str
-      .replace(/[Ａ-Ｚａ-ｚ０-９]/g, function (s) {
-        return String.fromCharCode(s.charCodeAt(0) - 0xfee0);
-      })
-      .toLowerCase();
-    return rep;
-  };
   function doSearch(e) {
     setKeyword(e.target.value);
   }
@@ -49,7 +26,7 @@ export default function Home() {
         <title>QinTechBoard</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <div className='w-full px-4 mt-4 sticky top-0 bg-black'>
+      <div className='w-full px-4 py-4 mt-4 sticky top-0 bg-black'>
         <input
           type='search'
           className='w-full bg-black focus:bg-gray-900 outline-none rounded-full border border-gray-800 px-4 py-1 text-white'
