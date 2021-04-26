@@ -4,9 +4,12 @@ import GrayButton from "./GrayButton";
 import ListTitle from '../title/ListTitle';
 
 const SearchItems = (lists, word) => {
+  if(!lists){
+    lists = [];
+  }
   return lists.filter((item) => {
     let flg = -1;
-    word.split(' ').forEach((keyitem) => {
+    keywordConv(word).split(' ').forEach((keyitem) => {
       if (flg !== 0) {
         flg = ~keywordConv(JSON.stringify(item)).indexOf(keyitem);
       }

@@ -43,7 +43,6 @@ export default function Home() {
   function doSearch(e) {
     setKeyword(e.target.value);
   }
-  if (!data) return <div>load</div>;
   return (
     <Layout>
       <Head>
@@ -61,27 +60,27 @@ export default function Home() {
       </div>
       <LinkButtons
         title='ツール＆サービス'
-        items={data['data'] && (data['data']['ツール＆サービス'] || [])}
+        items={data && (data['data']['ツール＆サービス'] || [])}
         keyword={keyword}
       ></LinkButtons>
       <LinkButtons
         title='npm module'
-        items={data['data'] && (data['data']['node.jsモジュール'] || [])}
+        items={data && (data['data']['node.jsモジュール'] || [])}
         keyword={keyword}
       ></LinkButtons>
       <LinkButtons
         title='記事'
-        items={data['data'] && (data['data']['参考記事'] || [])}
+        items={data && (data['data']['参考記事'] || [])}
         keyword={keyword}
       ></LinkButtons>
       <LinkButtons
         title='フォーム受付'
-        items={data['data'] && (data['data']['フォーム受付'] || [])}
+        items={data && (data['data']['フォーム受付'] || [])}
         keyword={keyword}
       ></LinkButtons>
       <LinkButtons
         title='ブックマークレット'
-        items={data['data'] && (data['data']['ブックマークレット'] || [])}
+        items={data && (data['data']['ブックマークレット'] || [])}
         keyword={keyword}
       ></LinkButtons>
       <ScrollPageTop></ScrollPageTop>
