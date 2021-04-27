@@ -11,7 +11,7 @@ export default function Home() {
     'https://script.google.com/macros/s/AKfycbzdElyGY3H5HYcoUKOxOG9-F7LpmwlPe2y13jZv3lskhajjF20A4KiZNT7e6EoMvF2aOQ/exec',
     fetcher,
     {
-      refreshInterval: 20000,
+      refreshInterval: 30000,
       revalidateOnFocus: true,
       revalidateOnReconnect: true,
     }
