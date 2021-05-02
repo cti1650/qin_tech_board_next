@@ -7,8 +7,8 @@ export function HockForm() {
   const { register, handleSubmit, watch, formState: { errors }, reset } = useForm();
   const onSubmit = data => {
     console.log(data);
-    axios.post('https://script.google.com/macros/s/AKfycbzdElyGY3H5HYcoUKOxOG9-F7LpmwlPe2y13jZv3lskhajjF20A4KiZNT7e6EoMvF2aOQ/exec',data).then(r=>{
-      alert('投稿されました！');
+    axios.get('https://script.google.com/macros/s/AKfycbzdElyGY3H5HYcoUKOxOG9-F7LpmwlPe2y13jZv3lskhajjF20A4KiZNT7e6EoMvF2aOQ/exec',{
+      params: data}).then(r=>{
       reset({
         url:'',
         summary:'サイト',
@@ -16,6 +16,7 @@ export function HockForm() {
         tag:'',
       });
       console.log(r);
+      r.data[0] && alert('『'+r.data[0][1]+'』が投稿されました！');
     })
   };
 
@@ -23,7 +24,8 @@ export function HockForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
-      <label className="text-white">URL</label>
+      <h1>QinTechBoardへ投稿</h1>
+      <label className="text-white"><span className="text-red-500">*</span> URL</label>
       <input className={cc(
         [
           "p-1 rounded-xl",
@@ -46,6 +48,7 @@ export function HockForm() {
       <label className="text-white">タグ (複数入力は『,』区切り)</label>
       <input className="p-1 rounded-xl" {...register("tag")} />
       <input className="mt-4 p-2 rounded-lg" type="submit" />
+      <div className="text-red-500">* 必須項目</div>
       {errors.exampleRequired && <span className="text-red-400">入力されていない項目があります。</span>}
     </form>
   );
