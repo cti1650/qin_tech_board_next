@@ -30,7 +30,6 @@ const Index = () => {
       .eq('id', link_id)
       .then(({ data, error }) => {
         setDb(data);
-        location.href = '/index2';
       });
   };
 
@@ -61,6 +60,7 @@ const Index = () => {
         .then(() => {
           fetchDb(data.id);
           alert('上書きしました');
+          location.href = '/index2';
           console.log('save');
         });
     }
