@@ -18,6 +18,7 @@ const Index = () => {
   const categoryEl = useRef(null);
   const descriptionEl = useRef(null);
   const typeEl = useRef(null);
+  const tagEl = useRef(null);
   // パスパラメータから値を取得
   const { link_id } = router.query;
   const [db, setDb] = useState([]);
@@ -29,12 +30,20 @@ const Index = () => {
       .eq('id', link_id)
       .then(({ data, error }) => {
         setDb(data);
+        location.href = '/index2';
       });
   };
 
   const deleteDb = (data) => {
     if (window.confirm('『' + data.name + '』を削除しますか？')) {
-      supabase.from('links').delete().eq('id', data.id);
+      supabase
+        .from('links')
+        .delete()
+        .eq('id', data.id)
+        .then(() => {
+          alert('削除しました');
+          location.href = '/index2';
+        });
     }
   };
   const saveDb = (data) => {
@@ -45,10 +54,15 @@ const Index = () => {
           name: nameEl.current.value,
           category: categoryEl.current.value,
           description: descriptionEl.current.value,
+          tag: tagEl.current.value,
           type: typeEl.current.value,
         })
-        .eq('id', data.id);
-      console.log('save');
+        .eq('id', data.id)
+        .then(() => {
+          fetchDb(data.id);
+          alert('上書きしました');
+          console.log('save');
+        });
     }
   };
 
@@ -61,6 +75,7 @@ const Index = () => {
       categoryEl.current.value = db[0].category;
       descriptionEl.current.value = db[0].description;
       nameEl.current.value = db[0].name;
+      tagEl.current.value = db[0].tag;
       typeEl.current.value = db[0].type;
     }
   }, [db]);
@@ -92,7 +107,9 @@ const Index = () => {
                 className='w-full text-2xl text-black rounded-lg px-2'
               ></input>
             </div>
-            <div className='w-full pl-4 py-4'>{db[0].url}</div>
+            <div className='w-full pl-4 py-4 whitespace-pre-line'>
+              {db[0].url}
+            </div>
             <div className='w-full pl-4'>
               <div>区分</div>
               <input
@@ -105,6 +122,14 @@ const Index = () => {
               <div>分類</div>
               <input
                 ref={categoryEl}
+                type='text'
+                className='w-full text-black rounded-lg px-2'
+              ></input>
+            </div>
+            <div className='w-full pl-4'>
+              <div>タグ</div>
+              <input
+                ref={tagEl}
                 type='text'
                 className='w-full text-black rounded-lg px-2'
               ></input>
