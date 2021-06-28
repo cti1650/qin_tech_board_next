@@ -1,12 +1,23 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import Layout from '../../src/components/layout';
 import { supabase } from '../../src/util/supabase';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faSearch,
+  faRetweet,
+  faEdit,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
 
 const Index = () => {
   const router = useRouter();
+  const nameEl = useRef(null);
+  const categoryEl = useRef(null);
+  const descriptionEl = useRef(null);
+  const typeEl = useRef(null);
   // パスパラメータから値を取得
   const { link_id } = router.query;
   const [db, setDb] = useState([]);
@@ -26,10 +37,33 @@ const Index = () => {
       supabase.from('links').delete().eq('id', data.id);
     }
   };
+  const saveDb = (data) => {
+    if (window.confirm('『' + data.name + '』の設定を上書きしますか？')) {
+      supabase
+        .from('links')
+        .update({
+          name: nameEl.current.value,
+          category: categoryEl.current.value,
+          description: descriptionEl.current.value,
+          type: typeEl.current.value,
+        })
+        .eq('id', data.id);
+      console.log('save');
+    }
+  };
 
   useEffect(() => {
     fetchDb(link_id);
   }, [link_id]);
+
+  useEffect(() => {
+    if (db.length === 1) {
+      categoryEl.current.value = db[0].category;
+      descriptionEl.current.value = db[0].description;
+      nameEl.current.value = db[0].name;
+      typeEl.current.value = db[0].type;
+    }
+  }, [db]);
 
   return (
     <Layout>
@@ -40,25 +74,62 @@ const Index = () => {
       {db && db.length === 1 && (
         <>
           <div className='flex flex-col px-4 py-8 spase-y-8 border border-gray-700 text-gray-300 rounded-lg'>
-            <div className='text-2xl'>{db[0].name}</div>
-            <div className='pl-4'>{db[0].url}</div>
-            <div className='pl-4'>{db[0].description}</div>
-            <div className='pl-4'>{db[0].category}</div>
-            <div className='pl-4'>{db[0].type}</div>
-            <div>
+            <div className='w-full text-right'>
               <button
-                className='w-full mt-4 px-4 py-2 border border-red-600 bg-red-400 text-black rounded-lg'
+                className='p-2 text-gray-700'
                 onClick={() => {
                   deleteDb(db[0]);
                 }}
               >
-                削除
+                <FontAwesomeIcon icon={faTrash} />
+              </button>
+            </div>
+            <div className='w-full'>
+              <div>名称</div>
+              <input
+                ref={nameEl}
+                type='text'
+                className='w-full text-2xl text-black rounded-lg px-2'
+              ></input>
+            </div>
+            <div className='w-full pl-4 py-4'>{db[0].url}</div>
+            <div className='w-full pl-4'>
+              <div>区分</div>
+              <input
+                ref={typeEl}
+                type='text'
+                className='w-full text-black rounded-lg px-2'
+              ></input>
+            </div>
+            <div className='w-full pl-4'>
+              <div>分類</div>
+              <input
+                ref={categoryEl}
+                type='text'
+                className='w-full text-black rounded-lg px-2'
+              ></input>
+            </div>
+            <div className='w-full pl-4'>
+              <div>備考</div>
+              <textarea
+                ref={descriptionEl}
+                className='w-full text-black rounded-lg px-2'
+              ></textarea>
+            </div>
+            <div>
+              <button
+                className='w-full mt-4 px-4 py-2 border border-yellow-600 bg-yellow-500 text-black rounded-lg'
+                onClick={() => {
+                  saveDb(db[0]);
+                }}
+              >
+                保存
               </button>
             </div>
             <div>
               <Link href='/index2' scroll={false}>
                 <a>
-                  <div className='w-full mt-4 px-4 py-2 border border-gray-400 bg-gray-500 text-gray-200 rounded-lg text-center'>
+                  <div className='w-full mt-4 px-4 py-2 border border-gray-600 bg-gray-700 text-gray-200 rounded-lg text-center'>
                     キャンセル
                   </div>
                 </a>
