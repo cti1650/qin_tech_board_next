@@ -8,7 +8,7 @@ import ScrollPageTop from '../src/components/tools/ScrollPageTop';
 import { supabase } from '../src/util/supabase';
 
 const updateDB = async () => {
-  return await supabase.from('types').select('*');
+  return await supabase.from('type_list').select('*');
 };
 
 export default function Home() {
@@ -21,7 +21,7 @@ export default function Home() {
     let DB = await updateDB();
     setLinksData(DB.data);
     supabase
-      .from('types')
+      .from('type_list')
       .on('*', async (data) => {
         let DB = await updateDB();
         setLinksData(DB.data);
@@ -46,11 +46,7 @@ export default function Home() {
       {linksData &&
         linksData.map((item) => (
           <div>
-            <SupabaseDatas
-              table_id={item.name}
-              keyword={keyword}
-              small={item.word}
-            />
+            <SupabaseDatas table_id={item.type} keyword={keyword} />
           </div>
         ))}
       <ScrollPageTop></ScrollPageTop>
