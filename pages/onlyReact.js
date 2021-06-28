@@ -1,32 +1,40 @@
 import Head from 'next/head';
-import useSWR from 'swr';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Layout from '../src/components/layout';
 import LinkButtons from '../src/components/button/LinkButtons';
+import LinkButtons2 from '../src/components/button/LinkButtons2';
+import { SupabaseDatas } from '../src/components/button/SupabaseDatas';
 import ScrollPageTop from '../src/components/tools/ScrollPageTop';
+import { supabase } from '../src/util/supabase';
 
-export default function OnlyReact() {
-  const fetcher = (...args) => fetch(...args).then((res) => res.json());
-  const { data, error } = useSWR(
-    'https://script.google.com/macros/s/AKfycbzdElyGY3H5HYcoUKOxOG9-F7LpmwlPe2y13jZv3lskhajjF20A4KiZNT7e6EoMvF2aOQ/exec',
-    fetcher,
-    {
-      refreshInterval: 30000,
-      revalidateOnFocus: true,
-      revalidateOnReconnect: true,
-    }
-  );
+const updateDB = async () => {
+  return await supabase.from('type_list').select('*');
+};
+
+export default function Home() {
   const [keyword, setKeyword] = useState('');
   function doSearch(e) {
     setKeyword(e.target.value);
   }
+  const [linksData, setLinksData] = useState([]);
+  useEffect(async () => {
+    let DB = await updateDB();
+    setLinksData(DB.data);
+    supabase
+      .from('type_list')
+      .on('*', async (data) => {
+        let DB = await updateDB();
+        setLinksData(DB.data);
+      })
+      .subscribe();
+  }, []);
   return (
     <Layout>
       <Head>
         <title>QinTechBoard</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <div className='w-full px-4 py-4 mt-4 sticky top-0 bg-black'>
+      <div className='w-full px-4 py-4 mt-4 sticky top-0 bg-black z-30'>
         <input
           type='search'
           className='w-full bg-black focus:bg-gray-900 outline-none rounded-full border border-gray-800 px-4 py-1 text-white'
@@ -35,33 +43,12 @@ export default function OnlyReact() {
           onChange={(e) => doSearch(e)}
         ></input>
       </div>
-      <LinkButtons
-        title='ツール＆サービス'
-        items={data && (data['data']['ツール＆サービス'] || [])}
-        keyword={'react ' + keyword}
-        size='small'
-      ></LinkButtons>
-      <LinkButtons
-        title='npm module'
-        items={data && (data['data']['node.jsモジュール'] || [])}
-        keyword={'react ' + keyword}
-        size='small'
-      ></LinkButtons>
-      <LinkButtons
-        title='記事'
-        items={data && (data['data']['参考記事'] || [])}
-        keyword={'react ' + keyword}
-      ></LinkButtons>
-      <LinkButtons
-        title='フォーム受付'
-        items={data && (data['data']['フォーム受付'] || [])}
-        keyword={'react ' + keyword}
-      ></LinkButtons>
-      <LinkButtons
-        title='ブックマークレット'
-        items={data && (data['data']['ブックマークレット'] || [])}
-        keyword={'react ' + keyword}
-      ></LinkButtons>
+      {linksData &&
+        linksData.map((item) => (
+          <div>
+            <SupabaseDatas table_id={item.type} keyword={'react ' + keyword} />
+          </div>
+        ))}
       <ScrollPageTop></ScrollPageTop>
     </Layout>
   );

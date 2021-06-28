@@ -40,10 +40,12 @@ const Index = () => {
         .delete()
         .eq('id', data.id)
         .then(() => {
-          alert('削除しました');
-          location.href = '/index2';
+          history.back();
         });
     }
+  };
+  const cancel = () => {
+    history.back();
   };
   const saveDb = (data) => {
     if (window.confirm('『' + data.name + '』の設定を上書きしますか？')) {
@@ -59,8 +61,7 @@ const Index = () => {
         .eq('id', data.id)
         .then(() => {
           fetchDb(data.id);
-          alert('上書きしました');
-          location.href = '/index2';
+          history.back();
           console.log('save');
         });
     }
@@ -152,13 +153,14 @@ const Index = () => {
               </button>
             </div>
             <div>
-              <Link href='/index2' scroll={false}>
-                <a>
-                  <div className='w-full mt-4 px-4 py-2 border border-gray-600 bg-gray-700 text-gray-200 rounded-lg text-center'>
-                    キャンセル
-                  </div>
-                </a>
-              </Link>
+              <button
+                className='w-full mt-4 px-4 py-2 border border-gray-600 bg-gray-700 text-gray-200 rounded-lg text-center'
+                onClick={() => {
+                  cancel();
+                }}
+              >
+                キャンセル
+              </button>
             </div>
           </div>
         </>
