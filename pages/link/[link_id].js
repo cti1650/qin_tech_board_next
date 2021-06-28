@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useState, useEffect, useCallback } from 'react';
+import Link from 'next/link';
 import Layout from '../../src/components/layout';
 import { supabase } from '../../src/util/supabase';
 
@@ -38,22 +39,30 @@ const Index = () => {
       </Head>
       {db && db.length === 1 && (
         <>
-          <div className='flex flex-col px-4 py-8 spase-y-8 border border-white text-gray-300'>
-            <div>No. {link_id}</div>
-            <div>{db[0].name}</div>
-            <div>{db[0].url}</div>
-            <div>{db[0].description}</div>
-            <div>{db[0].category}</div>
-            <div>{db[0].type}</div>
+          <div className='flex flex-col px-4 py-8 spase-y-8 border border-gray-700 text-gray-300 rounded-lg'>
+            <div className='text-2xl'>{db[0].name}</div>
+            <div className='pl-4'>{db[0].url}</div>
+            <div className='pl-4'>{db[0].description}</div>
+            <div className='pl-4'>{db[0].category}</div>
+            <div className='pl-4'>{db[0].type}</div>
             <div>
               <button
-                className='w-full mt-4 px-4 py-2 border border-red-400 bg-red-500 text-gray-200 rounded-lg'
+                className='w-full mt-4 px-4 py-2 border border-red-600 bg-red-400 text-black rounded-lg'
                 onClick={() => {
                   deleteDb(db[0]);
                 }}
               >
                 削除
               </button>
+            </div>
+            <div>
+              <Link href='/index2' scroll={false}>
+                <a>
+                  <div className='w-full mt-4 px-4 py-2 border border-gray-400 bg-gray-500 text-gray-200 rounded-lg text-center'>
+                    キャンセル
+                  </div>
+                </a>
+              </Link>
             </div>
           </div>
         </>
