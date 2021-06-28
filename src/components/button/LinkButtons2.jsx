@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import ButtonItem from "./ButtonItem";
-import GrayButton from "./GrayButton";
+import GrayButton from "./GrayButton2";
 import ListTitle from '../title/ListTitle';
 import cc from "classcat";
 
@@ -44,7 +44,7 @@ function LinkButtons2(props) {
                 },
                 "p-1"])}>
               <ButtonItem item="item">
-                <GrayButton url={item['url']} title={item['name']} summary={item['category']} comment={item['description']} tag={item['tag']} />
+                <GrayButton id={item['id']} url={item['url']} title={item['name']} summary={item['category']} comment={item['description']} tag={item['tag']} />
               </ButtonItem>
               </div>
             )
