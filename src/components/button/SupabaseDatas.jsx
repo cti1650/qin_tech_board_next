@@ -8,7 +8,7 @@ const updateDB = async (table_id) => {
   };  
 
 export const SupabaseDatas = (props) => {
-  const { table_id,keyword,small } = props;
+  const { table_id,keyword,small,size } = props;
   const [linksData, setLinksData] = useState([]);
   useEffect(async () => {
     let DB = await updateDB(table_id);
@@ -27,7 +27,7 @@ export const SupabaseDatas = (props) => {
         title={table_id}
         items={linksData && (linksData || [])}
         keyword={keyword}
-        size={small?'small':''}
+        size={size<20?'small':''}
       ></LinkButtons2>
     </>
   )
