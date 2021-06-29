@@ -89,10 +89,11 @@ const Index = () => {
       </Head>
       {db && db.length === 1 && (
         <>
-          <div className='flex flex-col px-4 py-8 spase-y-8 border border-gray-700 text-gray-300 rounded-lg'>
+          <div className='max-w-xl flex flex-col px-4 py-4 spase-y-8 border border-gray-700 text-gray-300 rounded-lg'>
             <div className='w-full text-right'>
               <button
-                className='p-2 text-gray-700'
+                className='text-gray-700 hover:text-red-400'
+                title='削除'
                 onClick={() => {
                   deleteDb(db[0]);
                 }}
@@ -144,7 +145,7 @@ const Index = () => {
             </div>
             <div>
               <button
-                className='w-full mt-4 px-4 py-2 border border-yellow-600 bg-yellow-500 text-black rounded-lg'
+                className='w-full mt-4 px-4 py-2 border border-gray-600 bg-gray-700 text-gray-200 hover:border-yellow-600 hover:bg-yellow-500 hover:text-black rounded-lg'
                 onClick={() => {
                   saveDb(db[0]);
                 }}
