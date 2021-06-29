@@ -109,7 +109,7 @@ const Index = () => {
                 className='w-full text-2xl text-black rounded-lg px-2'
               ></input>
             </div>
-            <div className='w-full pl-4 py-4 whitespace-pre-line'>
+            <div className='w-full pl-4 py-4 whitespace-pre-line break-words'>
               {db[0].url}
             </div>
             <div className='w-full pl-4'>
