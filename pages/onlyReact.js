@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import Layout from '../src/components/layout';
 import LinkButtons from '../src/components/button/LinkButtons';
 import LinkButtons2 from '../src/components/button/LinkButtons2';
@@ -13,10 +13,22 @@ const updateDB = async () => {
 
 export default function Home() {
   const [keyword, setKeyword] = useState('');
-  function doSearch(e) {
-    setKeyword(e.target.value);
-  }
+  const searchElement = useRef(null);
+  const doSearch = useCallback(() => {
+    setKeyword(searchElement.current.value);
+  }, [keyword]);
   const [linksData, setLinksData] = useState([]);
+  useEffect(() => {
+    if (localStorage.getItem('qin_tech_board_next_search_word')) {
+      searchElement.current.value = localStorage.getItem(
+        'qin_tech_board_next_search_word'
+      );
+      setKeyword(localStorage.getItem('qin_tech_board_next_search_word'));
+    }
+  }, []);
+  useEffect(() => {
+    localStorage.setItem('qin_tech_board_next_search_word', keyword);
+  }, [keyword]);
   useEffect(async () => {
     let DB = await updateDB();
     setLinksData(DB.data);
@@ -39,14 +51,18 @@ export default function Home() {
           type='search'
           className='w-full bg-black focus:bg-gray-900 outline-none rounded-full border border-gray-800 px-4 py-1 text-white'
           placeholder='検索'
-          value={keyword}
-          onChange={(e) => doSearch(e)}
+          ref={searchElement}
+          onKeyUp={doSearch}
         ></input>
       </div>
       {linksData &&
         linksData.map((item) => (
           <div>
-            <SupabaseDatas table_id={item.type} size={item.max_len} keyword={'react ' + keyword} />
+            <SupabaseDatas
+              table_id={item.type}
+              size={item.max_len}
+              keyword={'react ' + keyword}
+            />
           </div>
         ))}
       <ScrollPageTop></ScrollPageTop>
