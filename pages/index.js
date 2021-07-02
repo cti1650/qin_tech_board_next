@@ -61,8 +61,11 @@ export default function Home() {
           {
             <AddLinkButton
               url={keyword}
-              onClick={() => {
-                setKeyword(keyword);
+              onClick={async () => {
+                let DB = await updateDB();
+                setLinksData(DB.data);
+                searchElement.current.value = '';
+                doSearch();
               }}
             />
           }
