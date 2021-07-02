@@ -3,9 +3,12 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import Layout from '../src/components/layout';
 import LinkButtons from '../src/components/button/LinkButtons';
 import LinkButtons2 from '../src/components/button/LinkButtons2';
+import { AddLinkButton } from '../src/components/button/AddLinkButton';
 import { SupabaseDatas } from '../src/components/button/SupabaseDatas';
 import ScrollPageTop from '../src/components/tools/ScrollPageTop';
 import { supabase } from '../src/util/supabase';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const updateDB = async () => {
   return await supabase.from('type_table').select('*');
@@ -47,13 +50,23 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <div className='w-full px-4 py-4 mt-4 sticky top-0 bg-black z-30'>
-        <input
-          type='search'
-          className='w-full bg-black focus:bg-gray-900 outline-none rounded-full border border-gray-800 px-4 py-1 text-white'
-          placeholder='検索'
-          ref={searchElement}
-          onKeyUp={doSearch}
-        ></input>
+        <div className='flex flex-row'>
+          <input
+            type='search'
+            className='w-full bg-black focus:bg-gray-900 outline-none rounded-full border border-gray-800 px-4 py-1 text-white'
+            placeholder='検索'
+            ref={searchElement}
+            onKeyUp={doSearch}
+          ></input>
+          {
+            <AddLinkButton
+              url={keyword}
+              onClick={() => {
+                setKeyword(keyword);
+              }}
+            />
+          }
+        </div>
       </div>
       {linksData &&
         linksData.map((item) => (
