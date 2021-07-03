@@ -31,7 +31,7 @@ export default function AuthBasic(props) {
       <Container supabaseClient={supabase} Content={children}>
         <div className='max-w-md w-full h-full mx-auto p-8 bg-white rounded-lg'>
           <div className='text-4xl text-black mb-4'>QinTechBoard</div>
-          <Auth supabaseClient={supabase} providers={['github']} />
+          <Auth supabaseClient={supabase} providers={['github','google']} />
         </div>
       </Container>
     </Auth.UserContextProvider>
