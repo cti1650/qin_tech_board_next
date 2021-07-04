@@ -69,7 +69,6 @@ export default function Home() {
                 });
                 let DB = await updateDB();
                 setLinksData(DB.data);
-                searchElement.current.value = '';
                 doSearch();
               }}
             />
