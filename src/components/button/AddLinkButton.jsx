@@ -26,8 +26,6 @@ export const AddLinkButton = (props) => {
   const handleClick = async (e)=>{
     uploadLink(url);
     onClick && onClick(e);
-    let DB = await linkDB(url);
-    setPageData(DB.data);
   };
 
   useEffect(async ()=>{

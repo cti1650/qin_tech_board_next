@@ -62,6 +62,11 @@ export default function Home() {
             <AddLinkButton
               url={keyword}
               onClick={async () => {
+                gtag.event({
+                  action: 'box_upload',
+                  category: 'Upload',
+                  label: keyword,
+                });
                 let DB = await updateDB();
                 setLinksData(DB.data);
                 searchElement.current.value = '';
@@ -70,6 +75,9 @@ export default function Home() {
             />
           }
         </div>
+      </div>
+      <div className='text-xs text-gray-600 text-right'>
+        ※ URLを貼り付けて＋を押すと投稿できます！
       </div>
       {linksData &&
         linksData.map((item) => (
