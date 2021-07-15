@@ -6,7 +6,7 @@ import { Detail } from '../board/Detail';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch,faRetweet,faEdit } from '@fortawesome/free-solid-svg-icons';
 
-import * as gtag from '../../lib/gtag';
+import * as gtag from '@lib/gtag';
 
 function GrayButton(props) {
   const { id,url,title,summary,comment,tag } = props;

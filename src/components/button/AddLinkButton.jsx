@@ -2,7 +2,7 @@ import { useCallback, useEffect,useState} from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-import { supabase } from '../../util/supabase';
+import { supabase } from '@util/supabase';
 
 const linkDB = async (url) => {
   return await supabase.from('links')
@@ -12,7 +12,7 @@ const linkDB = async (url) => {
 const uploadLink = (url) => {
   axios({
     method: 'get',
-    url:'https://script.google.com/macros/s/AKfycbzdElyGY3H5HYcoUKOxOG9-F7LpmwlPe2y13jZv3lskhajjF20A4KiZNT7e6EoMvF2aOQ/exec?url='+encodeURIComponent(url)
+    url:'/api/push?url='+encodeURIComponent(url)
   })
     .then(()=>{
       alert('アップロードが完了しました！')

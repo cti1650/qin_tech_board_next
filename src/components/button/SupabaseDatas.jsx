@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { supabase } from '../../util/supabase';
+import { supabase } from '@util/supabase';
 import LinkButtons2 from '../button/LinkButtons2';
 import cc from "classcat";
 
