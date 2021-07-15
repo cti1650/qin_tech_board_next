@@ -1,12 +1,12 @@
 import Head from 'next/head';
 import { useState, useEffect, useRef, useCallback } from 'react';
-import Layout from '../src/components/layout';
-import LinkButtons from '../src/components/button/LinkButtons';
-import LinkButtons2 from '../src/components/button/LinkButtons2';
-import { AddLinkButton } from '../src/components/button/AddLinkButton';
-import { SupabaseDatas } from '../src/components/button/SupabaseDatas';
-import ScrollPageTop from '../src/components/tools/ScrollPageTop';
-import { supabase } from '../src/util/supabase';
+import Layout from '@comp/layout';
+import LinkButtons from '@comp/button/LinkButtons';
+import LinkButtons2 from '@comp/button/LinkButtons2';
+import { AddLinkButton } from '@comp/button/AddLinkButton';
+import { SupabaseDatas } from '@comp/button/SupabaseDatas';
+import ScrollPageTop from '@comp/tools/ScrollPageTop';
+import { supabase } from '@util/supabase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 

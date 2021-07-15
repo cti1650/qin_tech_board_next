@@ -1,8 +1,8 @@
 import Head from 'next/head';
-import Layout from '../src/components/layout';
-import ScrollPageTop from '../src/components/tools/ScrollPageTop';
-import GoogleForm from '../src/components/tools/GoogleForm';
-import MkletButton from '../src/components/button/MkletButton';
+import Layout from '@comp/layout';
+import ScrollPageTop from '@comp/tools/ScrollPageTop';
+import GoogleForm from '@comp/tools/GoogleForm';
+import MkletButton from '@comp/button/MkletButton';
 
 export default function Form() {
   return (

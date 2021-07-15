@@ -2,8 +2,8 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
-import Layout from '../../src/components/layout';
-import { supabase } from '../../src/util/supabase';
+import Layout from '@comp/layout';
+import { supabase } from '@util/supabase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faSearch,
