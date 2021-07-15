@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Nav from './nav';
-import Logo from '../qin/Logo';
+import { Logo } from '../qin/Logo';
 
 function QinHeader() {
   return (
