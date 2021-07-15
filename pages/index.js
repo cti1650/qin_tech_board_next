@@ -53,7 +53,7 @@ export default function Home() {
         <div className='flex flex-row'>
           <input
             type='search'
-            className='w-full dark:bg-black bg-gray-100 dark:focus:bg-gray-900 focus:bg-white outline-none rounded-full border border-gray-800 px-4 py-1 dark:text-white text-black'
+            className='w-full dark:bg-black bg-gray-100 dark:focus:bg-gray-900 focus:bg-white outline-none rounded-full border dark:border-gray-800 border-gray-400 px-4 py-1 dark:text-white text-black'
             placeholder='検索'
             ref={searchElement}
             onKeyUp={doSearch}
