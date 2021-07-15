@@ -145,7 +145,7 @@ const Index = () => {
             </div>
             <div>
               <button
-                className='w-full mt-4 px-4 py-2 border border-gray-600 dark:bg-gray-700 bg-gray-300 dark:text-gray-200 text-black hover:border-yellow-600 hover:bg-yellow-500 hover:text-black rounded-lg'
+                className='w-full mt-4 px-4 py-2 border dark:border-gray-600 border-gray-400 dark:bg-gray-700 bg-gray-300 dark:text-gray-200 text-black hover:border-yellow-600 hover:bg-yellow-500 hover:text-black rounded-lg'
                 onClick={() => {
                   saveDb(db[0]);
                 }}
@@ -155,7 +155,7 @@ const Index = () => {
             </div>
             <div>
               <button
-                className='w-full mt-4 px-4 py-2 border border-gray-600 dark:bg-gray-700 bg-gray-300 dark:text-gray-200 text-black rounded-lg text-center'
+                className='w-full mt-4 px-4 py-2 border dark:border-gray-600 border-gray-400 dark:bg-gray-700 bg-gray-300 dark:text-gray-200 text-black rounded-lg text-center'
                 onClick={() => {
                   cancel();
                 }}
