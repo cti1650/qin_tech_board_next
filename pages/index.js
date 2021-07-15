@@ -9,6 +9,7 @@ import ScrollPageTop from '@comp/tools/ScrollPageTop';
 import { supabase } from '@util/supabase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import * as gtag from '@lib/gtag';
 
 const updateDB = async () => {
   return await supabase.from('type_table').select('*');
