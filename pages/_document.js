@@ -33,7 +33,7 @@ export default class MyDocument extends Document {
             </>
           )}
         </Head>
-        <body className='custom_class w-full p-2 container mx-auto bg-black'>
+        <body className='custom_class w-full p-2 container mx-auto dark:bg-black bg-gray-200'>
           <Main />
           <NextScript />
         </body>
