@@ -5,7 +5,7 @@ module.exports = {
     './pages/**/*.{js,ts,jsx,tsx}',
     './public/**/*.html',
   ],
-  darkMode: false,
+  darkMode: 'media',
   theme: {
     minHeight: {
       '60vh': '60vh',

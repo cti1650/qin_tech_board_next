@@ -46,10 +46,10 @@ export default function Home() {
         <title>QinTechBoard</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <div className='w-full px-4 py-4 mt-4 sticky top-0 bg-black z-30'>
+      <div className='w-full px-4 py-4 mt-4 sticky top-0 dark:bg-black bg-gray-200 z-30'>
         <input
           type='search'
-          className='w-full bg-black focus:bg-gray-900 outline-none rounded-full border border-gray-800 px-4 py-1 text-white'
+          className='w-full dark:bg-black bg-gray-100 dark:focus:bg-gray-900 focus:bg-white outline-none rounded-full border border-gray-800 px-4 py-1 dark:text-white text-black'
           placeholder='検索'
           ref={searchElement}
           onKeyUp={doSearch}

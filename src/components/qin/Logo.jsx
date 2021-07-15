@@ -1,4 +1,21 @@
-function Logo(props) {
+import Image from 'next/image';
+
+export const Logo = (props) => {
+  return (
+    <>
+      <Image
+        src="/logo.png"
+        alt="image"
+        width={220}
+        height={40}
+        style={{ margin: "10px auto" }}
+        {...props}
+      />
+    </>
+  );
+}
+
+export const Logo2 = (props) => {
   return (
     <>
       <img
@@ -10,5 +27,3 @@ function Logo(props) {
     </>
   );
 }
-
-export default Logo;

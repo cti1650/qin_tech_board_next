@@ -25,7 +25,7 @@ export function HockForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
       <h1>QinTechBoardへ投稿</h1>
-      <label className="text-white"><span className="text-red-500">*</span> URL</label>
+      <label className="dark:text-white text-black"><span className="text-red-500">*</span> URL</label>
       <input className={cc(
         [
           "p-1 rounded-xl",
@@ -34,7 +34,7 @@ export function HockForm() {
           } 
         ]
       )} defaultValue="" {...register("url", { required: true })} />
-      <label className="text-white">分類</label>
+      <label className="dark:text-white text-black">分類</label>
       <input defaultValue="サイト" className={cc(
         [
           "p-1 rounded-xl",
@@ -43,9 +43,9 @@ export function HockForm() {
           } 
         ]
       )} {...register("summary", { required: true })} />
-      <label className="text-white">備考</label>
+      <label className="dark:text-white text-black">備考</label>
       <textarea className="p-1 rounded-xl h-40" {...register("description")} />
-      <label className="text-white">タグ (複数入力は『,』区切り)</label>
+      <label className="dark:text-white text-black">タグ (複数入力は『,』区切り)</label>
       <input className="p-1 rounded-xl" {...register("tag")} />
       <input className="mt-4 p-2 rounded-lg" type="submit" />
       <div className="text-red-500">* 必須項目</div>

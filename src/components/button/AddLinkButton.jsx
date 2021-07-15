@@ -36,7 +36,7 @@ export const AddLinkButton = (props) => {
     <>
       {url && pageData && pageData.length === 0 && url.match(/^(?:[^:\/?#]+:)?(?:\/\/[^\/?#]*)?(?:([^?#]*\/)([^\/?#]*))?(\?[^#]*)?(?:#.*)?$/) &&
       (<div>
-        <button className='w-full bg-black outline-none rounded-full border-none px-4 py-1 text-white hover:text-red-300 focus:outline-none' onClick={handleClick}>
+        <button className='w-full dark:bg-black bg-gray-200 outline-none rounded-full border-none px-4 py-1 dark:text-white text-black hover:text-red-300 focus:outline-none' onClick={handleClick}>
           <FontAwesomeIcon icon={faPlus} />
         </button>
       </div>)}
