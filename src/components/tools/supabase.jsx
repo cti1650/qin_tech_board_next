@@ -1,6 +1,6 @@
 import 'tailwindcss/tailwind.css';
 import { Auth, Typography, Button } from '@supabase/ui'
-import { supabase } from '../../util/supabase';
+import { supabase } from '@util/supabase';
 
 const Container = (props) => {
   const { user } = Auth.useUser()

@@ -1,5 +1,5 @@
 import Document, { Head, Main, NextScript } from 'next/document';
-import { existsGaId, GA_ID } from '../src/lib/gtag';
+import { existsGaId, GA_ID } from '@lib/gtag';
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {

@@ -2,7 +2,7 @@ import { useCallback, useEffect,useState} from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-import { supabase } from '../../util/supabase';
+import { supabase } from '@util/supabase';
 
 const linkDB = async (url) => {
   return await supabase.from('links')
