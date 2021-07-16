@@ -6,6 +6,7 @@ import LinkButtons2 from '@comp/button/LinkButtons2';
 import { SupabaseDatas } from '@comp/button/SupabaseDatas';
 import ScrollPageTop from '@comp/tools/ScrollPageTop';
 import { supabase } from '@util/supabase';
+import { useHotkeys } from 'react-hotkeys-hook';
 
 const updateDB = async () => {
   return await supabase.from('type_table').select('*');
@@ -18,6 +19,16 @@ export default function Home() {
     setKeyword(searchElement.current.value);
   }, [keyword]);
   const [linksData, setLinksData] = useState([]);
+  useHotkeys('ctrl+s, command+s, ctrl+f, command+f', (evt) => {
+    searchElement.current.focus();
+    evt.preventDefault();
+  });
+  useHotkeys('ctrl+c, command+c', (evt) => {
+    searchElement.current.value = '';
+    doSearch();
+    searchElement.current.focus();
+    evt.preventDefault();
+  });
   useEffect(() => {
     if (localStorage.getItem('qin_tech_board_next_search_word')) {
       searchElement.current.value = localStorage.getItem(
