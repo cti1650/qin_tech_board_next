@@ -9,6 +9,7 @@ import ScrollPageTop from '@comp/tools/ScrollPageTop';
 import { supabase } from '@util/supabase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { useHotkeys } from 'react-hotkeys-hook';
 import * as gtag from '@lib/gtag';
 
 const updateDB = async () => {
@@ -22,6 +23,16 @@ export default function Home() {
     setKeyword(searchElement.current.value);
   }, [keyword]);
   const [linksData, setLinksData] = useState([]);
+  useHotkeys('ctrl+s, command+s, ctrl+f, command+f', (evt) => {
+    searchElement.current.focus();
+    evt.preventDefault();
+  });
+  useHotkeys('ctrl+c, command+c', (evt) => {
+    searchElement.current.value = '';
+    doSearch();
+    searchElement.current.focus();
+    evt.preventDefault();
+  });
   useEffect(() => {
     if (localStorage.getItem('qin_tech_board_next_search_word')) {
       searchElement.current.value = localStorage.getItem(
