@@ -1,55 +1,10 @@
-import { createClient } from '@supabase/supabase-js';
 import axios from 'axios';
 
-export const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_KEY
-);
-
-export const typeTableDB = async () => {
-  return await supabase
-    .from('type_table')
-    .select('*')
-    .then((db) => ({ data: db.data, error: db.error }))
-    .catch((e) => ({ data: [], error: e.statusCode }));
+export default async (req, res) => {
+  return res.status(200).json(await getUrlProperties(req.query.url));
 };
 
-export const insertDB = async (json) => {
-  let data = {
-    type: '',
-    category: '',
-    name: '',
-    url: '',
-    description: '',
-    tag: '',
-  };
-  data = { ...data, ...json };
-  return await supabase
-    .from('links')
-    .insert([data])
-    .then((db) => ({ data: db.data, error: db.error }))
-    .catch((e) => ({ data: [], error: e.statusCode }));
-};
-
-export const updateLinkUrl = async (url, option = {}) => {
-  let json = {
-    type: 'アップロード',
-    category: 'サイト',
-    url: url,
-  };
-  json = { ...json, ...option };
-  if (url) {
-    let data = await getUrlProperties(url);
-    if (data.title) json = { ...json, name: data.title };
-    if (data.description) json = { ...json, description: data.description };
-    if (data.keywords) json = { ...json, tag: data.keywords.join(',') };
-    await insertDB(json);
-    return json;
-  }
-  return json;
-};
-
-export const getUrlProperties = async (url) => {
+const getUrlProperties = async (url) => {
   let response = await axios.get(url);
   // console.log(response.data);
   let html = response.data;
