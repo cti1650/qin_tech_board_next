@@ -14,6 +14,14 @@ export const typeTableDB = async () => {
     .catch((e) => ({ data: [], error: e.statusCode }));
 };
 
+export const tagsDB = async () => {
+  return await supabase
+    .from('tags')
+    .select('*')
+    .then((db) => ({ data: db.data, error: db.error }))
+    .catch((e) => ({ data: [], error: e.statusCode }));
+};
+
 export const insertDB = async (json) => {
   let data = {
     type: '',

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useRef, useState, useCallback } from 'react';
 import axios from 'axios';
-import { Input, Checkbox, Radio, Button } from '@supabase/ui';
+import { Input, Button } from '@supabase/ui';
 import { insertDB } from '@util/supabase';
 
 export const SupaUIForm = (props) => {
