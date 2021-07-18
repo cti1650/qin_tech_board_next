@@ -33,11 +33,13 @@ export const TagCheckList = (props) => {
     <>
       <div>
         {tag && (
-          <div className='flex flex-row flex-wrap space-x-2 space-y-2'>
+          <div className='flex flex-row flex-wrap'>
             {tag.map((item) => {
               return (
-                <div className='p-2 rounded-lg bg-gray-100 border border-gray-300 text-gray-800 text-sm'>
-                  {item.btrim}
+                <div className='p-1'>
+                  <div className='p-2 rounded-lg bg-gray-100 border border-gray-300 text-gray-800 text-sm'>
+                    {item.btrim}
+                  </div>
                 </div>
               );
             })}

@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Layout from '@comp/layout';
 import LinkButtons from '@comp/button/LinkButtons';
@@ -17,7 +18,10 @@ const updateDB = async () => {
 };
 
 export default function Home() {
-  const [keyword, setKeyword] = useState('');
+  const router = useRouter();
+  const { q } = router.query;
+  console.log(q);
+  const [keyword, setKeyword] = useState(q || '');
   const searchElement = useRef(null);
   const doSearch = useCallback(() => {
     setKeyword(searchElement.current.value);
@@ -65,6 +69,7 @@ export default function Home() {
         <div className='flex flex-row'>
           <input
             type='search'
+            name='q'
             className='w-full dark:bg-black bg-gray-100 dark:focus:bg-gray-900 focus:bg-white outline-none rounded-full border dark:border-gray-800 border-gray-400 px-4 py-1 dark:text-white text-black'
             placeholder='検索'
             ref={searchElement}
