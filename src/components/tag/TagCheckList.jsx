@@ -1,5 +1,6 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import Link from 'next/link';
 import { supabase } from '@util/supabase';
 import { tagsDB } from '@util/supabase';
 
@@ -37,9 +38,13 @@ export const TagCheckList = (props) => {
             {tag.map((item) => {
               return (
                 <div className='p-1'>
-                  <div className='p-2 rounded-lg bg-gray-100 border border-gray-300 text-gray-800 text-sm'>
-                    {item.btrim}
-                  </div>
+                  <Link href={'/' + item.btrim}>
+                    <a>
+                      <div className='p-2 rounded-lg bg-gray-100 border border-gray-300 text-gray-800 text-sm'>
+                        {item.btrim}
+                      </div>
+                    </a>
+                  </Link>
                 </div>
               );
             })}
