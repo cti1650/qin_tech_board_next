@@ -18,6 +18,9 @@ function Nav() {
       <Link href='/form'>
         <a className='mr-5 hover:text-gray-900'>Form</a>
       </Link>
+      <Link href='/tags'>
+        <a className='mr-5 hover:text-gray-900'>Tags</a>
+      </Link>
     </nav>
   );
 }
