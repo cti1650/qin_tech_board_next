@@ -111,7 +111,7 @@ export default function Home() {
               </div>
             ))}
         </div>
-        <div className='invisible xl:visible max-w-xs'>
+        <div className='invisible xl:visible w-0 xl:w-1/4'>
           <TagSelecter
             onChange={(tags) => {
               setTag(tags);
