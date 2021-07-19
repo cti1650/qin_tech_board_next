@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useHotkeys } from 'react-hotkeys-hook';
 import * as gtag from '@lib/gtag';
+import { TagSelecter } from '@comp/tag/TagSelecter';
 
 const updateDB = async () => {
   return await supabase.from('type_table').select('*');
@@ -21,6 +22,7 @@ export default function Home() {
   const router = useRouter();
   const { q } = router.query;
   const [keyword, setKeyword] = useState('');
+  const [tag, setTag] = useState([]);
   const searchElement = useRef(null);
   const doSearch = useCallback(() => {
     setKeyword(searchElement.current.value);
@@ -59,6 +61,7 @@ export default function Home() {
       })
       .subscribe();
   }, []);
+  console.log(tag);
   return (
     <Layout>
       <Head>
@@ -95,16 +98,27 @@ export default function Home() {
       <div className='text-xs text-gray-600 text-right'>
         ※ URLを貼り付けて＋を押すと投稿できます！
       </div>
-      {linksData &&
-        linksData.map((item) => (
-          <div>
-            <SupabaseDatas
-              table_id={item.type}
-              size={item.max_len}
-              keyword={keyword}
-            />
-          </div>
-        ))}
+      <div className='w-full flex flex-row'>
+        <div className='w-full'>
+          {linksData &&
+            linksData.map((item) => (
+              <div>
+                <SupabaseDatas
+                  table_id={item.type}
+                  size={item.max_len}
+                  keyword={keyword + ' ' + tag.join(' ')}
+                />
+              </div>
+            ))}
+        </div>
+        <div className='invisible xl:visible max-w-xs'>
+          <TagSelecter
+            onChange={(tags) => {
+              setTag(tags);
+            }}
+          />
+        </div>
+      </div>
       <ScrollPageTop></ScrollPageTop>
     </Layout>
   );
