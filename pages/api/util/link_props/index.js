@@ -54,6 +54,12 @@ const getUrlProperties = async (url) => {
           case 'article:tag':
             outputProps[name] = [...outputProps[name], ...[val]];
             break;
+          case 'og:title':
+            outputProps.title = outputProps.title || val;
+            break;
+          case 'og:description':
+            outputProps.description = outputProps.description || val;
+            break;
           default:
             console.log(name + ' : ' + val);
             outputProps[name] = val;
