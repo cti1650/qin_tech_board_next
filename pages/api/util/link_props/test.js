@@ -2,7 +2,10 @@ import axios from 'axios';
 import Cors from 'cors';
 
 const cors = Cors({
-  methods: ['GET', 'HEAD'],
+  methods: ['GET', 'POST', 'HEAD'],
+  origin: '*',
+  credentials: true,
+  optionsSuccessStatus: 200,
 })
 
 function runMiddleware(req, res, fn) {
@@ -18,7 +21,16 @@ function runMiddleware(req, res, fn) {
 
 async function handler(req, res) {
   await runMiddleware(req, res, cors);
-  return res.status(200).json(await getUrlProperties(req.query.url));
+  if(req.query.url){
+    return res.status(200).json(await getUrlProperties(req.query.url));
+  }else{
+    return res.status(200).json({
+      url:'',
+      title:'',
+      description:'',
+      tags:[],
+    });
+  };
 };
 
 export default handler;
