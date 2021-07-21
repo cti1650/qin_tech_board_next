@@ -18,6 +18,7 @@
     "autoprefixer": "^9",
     "axios": "^0.21.1",
     "classcat": "^5.0.3",
+    "cors": "^2.8.5",
     "next": "10.0.5",
     "postcss": "^7",
     "react": "17.0.1",
