@@ -55,17 +55,17 @@ const getUrlProperties = async (url) => {
     let regs = [
       { reg: /<(title)>([\s\S]*?)<\/title>/gi, name: 1, value: 2 },
       {
-        reg: /<meta name=(?:"|')([\s\S]*?)(?:"|')(?:[\s]*?)content=(?:"|')([\s\S]*?)(?:"|')(?:[\s]*?)(?:\/)?>/gi,
+        reg: /<meta name=(?:"|')([\s\S]*?)(?:"|')(?:[\s]*?)content=(?:"|')([\s\S]*?)(?:"|')(?:[\s]*?)(?: ?\/)?>/gi,
         name: 1,
         value: 2,
       },
       {
-        reg: /<meta content=(?:"|')([\s\S]*?)(?:"|')(?:[\s]*?)(name|property)=(?:"|')([\s\S]*?)(?:"|')(?:[\s]*?)(?:\/)?>/gi,
+        reg: /<meta content=(?:"|')([\s\S]*?)(?:"|')(?:[\s]*?)(?:name|property)=(?:"|')([\s\S]*?)(?:"|')(?:[\s]*?)(?: ?\/)?>/gi,
         name: 2,
         value: 1,
       },
       {
-        reg: /<meta property=(?:"|')([\s\S]*?)(?:"|')(?:[\s]*?)content=(?:"|')([\s\S]*?)(?:"|')(?:[\s]*?)(?:\/)?>/gi,
+        reg: /<meta property=(?:"|')([\s\S]*?)(?:"|')(?:[\s]*?)content=(?:"|')([\s\S]*?)(?:"|')(?:[\s]*?)(?: ?\/)?>/gi,
         name: 1,
         value: 2,
       },
@@ -92,7 +92,7 @@ const getUrlProperties = async (url) => {
             outputProps.description = outputProps.description || val;
             break;
           default:
-            console.log(name + ' : ' + val);
+            // console.log(name + ' : ' + val);
             outputProps[name] = val;
         }
       }
