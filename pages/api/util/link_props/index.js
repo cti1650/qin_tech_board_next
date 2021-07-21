@@ -1,8 +1,39 @@
 import axios from 'axios';
+import Cors from 'cors';
 
-export default async (req, res) => {
-  return res.status(200).json(await getUrlProperties(req.query.url));
+const cors = Cors({
+  methods: ['GET', 'POST', 'HEAD'],
+  origin: '*',
+  credentials: true,
+  optionsSuccessStatus: 200,
+})
+
+function runMiddleware(req, res, fn) {
+  return new Promise((resolve, reject) => {
+    fn(req, res, (result) => {
+      if (result instanceof Error) {
+        return reject(result)
+      }
+      return resolve(result)
+    })
+  })
+}
+
+async function handler(req, res) {
+  await runMiddleware(req, res, cors);
+  if(req.query.url){
+    return res.status(200).json(await getUrlProperties(req.query.url));
+  }else{
+    return res.status(200).json({
+      url:'',
+      title:'',
+      description:'',
+      tags:[],
+    });
+  };
 };
+
+export default handler;
 
 const getUrlProperties = async (url) => {
   let response = await axios.get(url);
@@ -24,17 +55,17 @@ const getUrlProperties = async (url) => {
     let regs = [
       { reg: /<(title)>([\s\S]*?)<\/title>/gi, name: 1, value: 2 },
       {
-        reg: /<meta name=(?:"|')([\s\S]*?)(?:"|')(?:[\s]*?)content=(?:"|')([\s\S]*?)(?:"|')(?:[\s]*?)(?:\/)?>/gi,
+        reg: /<meta name=(?:"|')([\s\S]*?)(?:"|')(?:[\s]*?)content=(?:"|')([\s\S]*?)(?:"|')(?:[\s]*?)(?: ?\/)?>/gi,
         name: 1,
         value: 2,
       },
       {
-        reg: /<meta content=(?:"|')([\s\S]*?)(?:"|')(?:[\s]*?)(name|property)=(?:"|')([\s\S]*?)(?:"|')(?:[\s]*?)(?:\/)?>/gi,
+        reg: /<meta content=(?:"|')([\s\S]*?)(?:"|')(?:[\s]*?)(?:name|property)=(?:"|')([\s\S]*?)(?:"|')(?:[\s]*?)(?: ?\/)?>/gi,
         name: 2,
         value: 1,
       },
       {
-        reg: /<meta property=(?:"|')([\s\S]*?)(?:"|')(?:[\s]*?)content=(?:"|')([\s\S]*?)(?:"|')(?:[\s]*?)(?:\/)?>/gi,
+        reg: /<meta property=(?:"|')([\s\S]*?)(?:"|')(?:[\s]*?)content=(?:"|')([\s\S]*?)(?:"|')(?:[\s]*?)(?: ?\/)?>/gi,
         name: 1,
         value: 2,
       },
@@ -61,7 +92,7 @@ const getUrlProperties = async (url) => {
             outputProps.description = outputProps.description || val;
             break;
           default:
-            console.log(name + ' : ' + val);
+            // console.log(name + ' : ' + val);
             outputProps[name] = val;
         }
       }
