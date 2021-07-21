@@ -16,7 +16,7 @@ function runMiddleware(req, res, fn) {
   })
 }
 
-async function handler(req, res) => {
+async function handler(req, res) {
   await runMiddleware(req, res, cors);
   return res.status(200).json(await getUrlProperties(req.query.url));
 };
