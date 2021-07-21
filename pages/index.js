@@ -61,7 +61,6 @@ export default function Home() {
       })
       .subscribe();
   }, []);
-  console.log(tag);
   return (
     <Layout>
       <Head>

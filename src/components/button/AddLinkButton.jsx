@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { supabase, updateLinkUrl } from '@util/supabase';
+import { useLinkFilter } from '@hooks/useLinkFilter';
 
 const linkDB = async (url) => {
   return await supabase.from('links').select('*').eq('url', url);
@@ -28,6 +29,7 @@ const uploadLink = async (url) => {
 export const AddLinkButton = (props) => {
   const { url, onClick } = props;
   const [pageData, setPageData] = useState([]);
+  const { linkFlag } = useLinkFilter(url);
 
   const handleClick = async (e) => {
     await uploadLink(url);
@@ -35,26 +37,24 @@ export const AddLinkButton = (props) => {
   };
 
   useEffect(async () => {
-    let DB = await linkDB(url);
-    setPageData(DB.data);
-  }, [url]);
+    if (linkFlag) {
+      let DB = await linkDB(url);
+      setPageData(DB.data);
+    }
+  }, [linkFlag]);
+
   return (
     <>
-      {url &&
-        pageData &&
-        pageData.length === 0 &&
-        url.match(
-          /^(?:[^:\/?#]+:)?(?:\/\/[^\/?#]*)?(?:([^?#]*\/)([^\/?#]*))?(\?[^#]*)?(?:#.*)?$/
-        ) && (
-          <div>
-            <button
-              className='w-full dark:bg-black bg-gray-200 outline-none rounded-full border-none px-4 py-1 dark:text-white text-black hover:text-red-300 focus:outline-none'
-              onClick={handleClick}
-            >
-              <FontAwesomeIcon icon={faPlus} />
-            </button>
-          </div>
-        )}
+      {linkFlag && pageData && pageData.length === 0 && (
+        <div>
+          <button
+            className='w-full dark:bg-black bg-gray-200 outline-none rounded-full border-none px-4 py-1 dark:text-white text-black hover:text-red-300 focus:outline-none'
+            onClick={handleClick}
+          >
+            <FontAwesomeIcon icon={faPlus} />
+          </button>
+        </div>
+      )}
     </>
   );
 };
