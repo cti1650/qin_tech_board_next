@@ -115,12 +115,12 @@ export default function Home() {
             ))}
         </div>
         <div className='invisible xl:visible w-0 xl:w-1/4'>
+          <CommentBoard />
           <TagSelecter
             onChange={(tags) => {
               setTag(tags);
             }}
           />
-          <CommentBoard />
         </div>
       </div>
       <ScrollPageTop></ScrollPageTop>

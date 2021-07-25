@@ -9,12 +9,15 @@ export const CommentBoard = (props) => {
   const messageEl = useRef(null);
   const [ideas, setIdeas] = useState([]);
   const [edit, setEdit] = useState(false);
+  const [startId, setStartId] = useState('');
+  const [limit, setLimit] = useState(3);
   const loadDB = useCallback(() => {
-    return supabase
+    supabase
       .from('kaizen')
       .select('*')
       .eq('complete', false)
       .order('createAt', { ascending: false })
+      .limit(limit)
       .then((db) => {
         if (db.data && !db.error) {
           setIdeas(db.data);
@@ -22,7 +25,7 @@ export const CommentBoard = (props) => {
           setIdeas([]);
         }
       });
-  }, []);
+  }, [limit]);
   const insertDB = useCallback(() => {
     if (!messageEl.current.value) {
       alert('コメントを投稿するには値を入力して下さい！');
@@ -38,27 +41,33 @@ export const CommentBoard = (props) => {
       .catch((e) => {
         alert('エラーが発生したためコメントを投稿出来ませんでした');
       });
-  }, []);
-  const deleteDB = useCallback((id) => {
-    if (!id) return null;
-    return supabase
-      .from('kaizen')
-      .delete()
-      .eq('id', id)
-      .then(() => {
-        loadDB();
-      });
-  }, []);
-  const changeStarDB = useCallback((id, star) => {
-    if (!id) return null;
-    return supabase
-      .from('kaizen')
-      .update({ star: !star })
-      .eq('id', id)
-      .then(() => {
-        loadDB();
-      });
-  }, []);
+  }, [limit]);
+  const deleteDB = useCallback(
+    (id) => {
+      if (!id) return null;
+      return supabase
+        .from('kaizen')
+        .delete()
+        .eq('id', id)
+        .then(() => {
+          loadDB();
+        });
+    },
+    [limit]
+  );
+  const changeStarDB = useCallback(
+    (id, star) => {
+      if (!id) return null;
+      return supabase
+        .from('kaizen')
+        .update({ star: !star })
+        .eq('id', id)
+        .then(() => {
+          loadDB();
+        });
+    },
+    [limit]
+  );
   const handleEditChange = useCallback(() => {
     setEdit((prev) => {
       return !prev;
@@ -75,11 +84,33 @@ export const CommentBoard = (props) => {
     return () => {
       subscribe.unsubscribe();
     };
+  }, [limit]);
+  useEffect(async () => {
+    await supabase
+      .from('kaizen')
+      .select('*')
+      .eq('complete', false)
+      .order('createAt', { ascending: true })
+      .limit(1)
+      .single()
+      .then((db) => {
+        setStartId(db.data.id);
+      });
   }, []);
   const addMessage = useCallback(() => {
     insertDB();
     messageEl.current.value = '';
-  }, []);
+  }, [limit]);
+  const addLimit = useCallback(() => {
+    if (
+      ideas.filter((val) => {
+        return val.id === startId;
+      }).length === 1
+    ) {
+      return;
+    }
+    setLimit((prev) => prev + 5);
+  }, [limit, ideas, startId]);
   return (
     <>
       <div className={cc(['flex flex-col w-full pt-4', className])}>
@@ -162,6 +193,19 @@ export const CommentBoard = (props) => {
                 </div>
               );
             })}
+        </div>
+        <div className='p-1'>
+          {ideas &&
+            ideas.filter((val) => {
+              return val.id === startId;
+            }).length === 0 && (
+              <button
+                onClick={addLimit}
+                className='w-full py-2 bg-gray-100 border border-gray-300 rounded shadow'
+              >
+                さらに表示する
+              </button>
+            )}
         </div>
       </div>
     </>
