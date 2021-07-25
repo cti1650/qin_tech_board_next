@@ -41,27 +41,33 @@ export const CommentBoard = (props) => {
       .catch((e) => {
         alert('エラーが発生したためコメントを投稿出来ませんでした');
       });
-  }, []);
-  const deleteDB = useCallback((id) => {
-    if (!id) return null;
-    return supabase
-      .from('kaizen')
-      .delete()
-      .eq('id', id)
-      .then(() => {
-        loadDB();
-      });
-  }, []);
-  const changeStarDB = useCallback((id, star) => {
-    if (!id) return null;
-    return supabase
-      .from('kaizen')
-      .update({ star: !star })
-      .eq('id', id)
-      .then(() => {
-        loadDB();
-      });
-  }, []);
+  }, [limit]);
+  const deleteDB = useCallback(
+    (id) => {
+      if (!id) return null;
+      return supabase
+        .from('kaizen')
+        .delete()
+        .eq('id', id)
+        .then(() => {
+          loadDB();
+        });
+    },
+    [limit]
+  );
+  const changeStarDB = useCallback(
+    (id, star) => {
+      if (!id) return null;
+      return supabase
+        .from('kaizen')
+        .update({ star: !star })
+        .eq('id', id)
+        .then(() => {
+          loadDB();
+        });
+    },
+    [limit]
+  );
   const handleEditChange = useCallback(() => {
     setEdit((prev) => {
       return !prev;
@@ -94,7 +100,7 @@ export const CommentBoard = (props) => {
   const addMessage = useCallback(() => {
     insertDB();
     messageEl.current.value = '';
-  }, []);
+  }, [limit]);
   const addLimit = useCallback(() => {
     if (
       ideas.filter((val) => {
