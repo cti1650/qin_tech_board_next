@@ -96,8 +96,8 @@ export default function Home() {
         ※ URLを貼り付けて＋を押すと投稿できます！
       </div>
       {linksData &&
-        linksData.map((item) => (
-          <div>
+        linksData.map((item, index) => (
+          <div key={index}>
             <SupabaseDatas
               table_id={item.type}
               size={item.max_len}

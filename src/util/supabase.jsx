@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import axios from 'axios';
+import { useCallback } from 'react';
 
 export const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
