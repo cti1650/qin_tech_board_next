@@ -67,8 +67,8 @@ export default function Home() {
         ></input>
       </div>
       {linksData &&
-        linksData.map((item) => (
-          <div>
+        linksData.map((item, index) => (
+          <div key={index}>
             <SupabaseDatas
               table_id={item.type}
               size={item.max_len}

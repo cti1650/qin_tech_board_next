@@ -104,8 +104,8 @@ export default function Home() {
       <div className='w-full flex flex-row'>
         <div className='w-full'>
           {linksData &&
-            linksData.map((item) => (
-              <div>
+            linksData.map((item, index) => (
+              <div key={index}>
                 <SupabaseDatas
                   table_id={item.type}
                   size={item.max_len}

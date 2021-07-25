@@ -35,7 +35,7 @@ export const TagCheckList = (props) => {
       <div>
         {tag && (
           <div className='flex flex-row flex-wrap'>
-            {tag.map((item) => {
+            {tag.map((item, index) => {
               return (
                 <div className='p-1'>
                   <Link href={'/' + item.btrim}>

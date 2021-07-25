@@ -14,7 +14,7 @@ export const TagSelecter = (props) => {
       .from('tags')
       .select('*')
       .then((db) => {
-        setTag(db.data.map((item) => item.btrim));
+        setTag(db.data.map((item, index) => item.btrim));
       });
   }, []);
   useEffect(() => {
@@ -27,7 +27,7 @@ export const TagSelecter = (props) => {
           <div className='flex flex-row flex-wrap'>
             {tags.map((item, index) => {
               return (
-                <div className='p-1.5'>
+                <div key={index} className='p-1.5'>
                   <label className='p-1.5 border rounded border-red-400 bg-red-200 text-gray-800 text-xs'>
                     <input
                       type='checkbox'
@@ -49,7 +49,7 @@ export const TagSelecter = (props) => {
           <div className='flex flex-row flex-wrap'>
             {unTags.map((item, index) => {
               return (
-                <div className='p-1.5'>
+                <div key={index} className='p-1.5'>
                   <label className='p-1.5 border rounded border-gray-300 bg-gray-100 text-gray-800 text-xs'>
                     <input
                       type='checkbox'

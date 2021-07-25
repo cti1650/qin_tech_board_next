@@ -6,32 +6,32 @@ const cors = Cors({
   origin: '*',
   credentials: true,
   optionsSuccessStatus: 200,
-})
+});
 
 function runMiddleware(req, res, fn) {
   return new Promise((resolve, reject) => {
     fn(req, res, (result) => {
       if (result instanceof Error) {
-        return reject(result)
+        return reject(result);
       }
-      return resolve(result)
-    })
-  })
+      return resolve(result);
+    });
+  });
 }
 
 async function handler(req, res) {
   await runMiddleware(req, res, cors);
-  if(req.query.url){
+  if (req.query.url) {
     return res.status(200).json(await getUrlProperties(req.query.url));
-  }else{
+  } else {
     return res.status(200).json({
-      url:'',
-      title:'',
-      description:'',
-      tags:[],
+      url: '',
+      title: '',
+      description: '',
+      tags: [],
     });
-  };
-};
+  }
+}
 
 export default handler;
 
@@ -71,7 +71,7 @@ const getUrlProperties = async (url) => {
       },
     ];
 
-    regs.map((item) => {
+    regs.map((item, index) => {
       let match;
       while ((match = item.reg.exec(headHtml)) != null) {
         let name = match[item.name].toLowerCase();
