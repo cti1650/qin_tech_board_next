@@ -13,6 +13,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useHotkeys } from 'react-hotkeys-hook';
 import * as gtag from '@lib/gtag';
 import { TagSelecter } from '@comp/tag/TagSelecter';
+import { CommentBoard } from '@comp/board/CommentBoard';
 
 const updateDB = async () => {
   return await supabase.from('type_table').select('*');
@@ -53,13 +54,16 @@ export default function Home() {
   useEffect(async () => {
     let DB = await updateDB();
     setLinksData(DB.data);
-    supabase
+    let subscribe = supabase
       .from('type_table')
       .on('*', async (data) => {
         let DB = await updateDB();
         setLinksData(DB.data);
       })
       .subscribe();
+    return () => {
+      subscribe.unsubscribe();
+    };
   }, []);
   return (
     <Layout>
@@ -116,6 +120,7 @@ export default function Home() {
               setTag(tags);
             }}
           />
+          <CommentBoard />
         </div>
       </div>
       <ScrollPageTop></ScrollPageTop>
