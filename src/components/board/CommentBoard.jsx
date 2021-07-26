@@ -114,26 +114,32 @@ export const CommentBoard = (props) => {
   return (
     <>
       <div className={cc(['flex flex-col w-full pt-4', className])}>
-        <div>コメント</div>
+        <div className='dark:text-white text-black'>コメント</div>
         <div className='w-full flex flex-col'>
           <div className='w-full'>
             <textarea
               ref={messageEl}
-              className='w-full h-16 p-2 rounded shadow-inner'
+              className='w-full h-16 p-2 rounded shadow-inner outline-none'
             ></textarea>
           </div>
           <div className='p-1'>
             <button
               onClick={addMessage}
-              className='w-full py-2 bg-gray-100 border border-gray-300 rounded shadow'
+              className='w-full py-2 bg-gray-100 border border-gray-300 outline-none hover:outline-none rounded shadow'
             >
               送信
             </button>
           </div>
           <div className='p-1 text-right'>
             <label>
-              <span className='px-2 text-sm'>編集</span>
-              <input type='checkbox' onClick={handleEditChange} className='' />
+              <span className='px-2 text-sm dark:text-white text-black'>
+                編集
+              </span>
+              <input
+                type='checkbox'
+                onClick={handleEditChange}
+                className='outline-none'
+              />
             </label>
           </div>
         </div>
@@ -158,7 +164,7 @@ export const CommentBoard = (props) => {
                       <div className='absolute top-0 right-0 flex flex-row space-x-1.5 py-0.5 px-2'>
                         <div
                           className={cc([
-                            'text-xs  outline-none',
+                            'text-xs outline-none hover:outline-none',
                             {
                               'text-gray-400 hover:text-yellow-400': !val.star,
                               'text-yellow-400': val.star,
@@ -166,6 +172,7 @@ export const CommentBoard = (props) => {
                           ])}
                         >
                           <button
+                            className='outline-none'
                             onClick={() => {
                               changeStarDB(val.id, val.star);
                             }}
@@ -173,8 +180,9 @@ export const CommentBoard = (props) => {
                             <FontAwesomeIcon icon={faStar} />
                           </button>
                         </div>
-                        <div className='text-xs text-gray-400 hover:text-pink-400 outline-none'>
+                        <div className='text-xs text-gray-400 hover:text-pink-400 outline-none hover:outline-none'>
                           <button
+                            className='outline-none'
                             onClick={() => {
                               deleteDB(val.id);
                             }}
@@ -201,7 +209,7 @@ export const CommentBoard = (props) => {
             }).length === 0 && (
               <button
                 onClick={addLimit}
-                className='w-full py-2 bg-gray-100 border border-gray-300 rounded shadow'
+                className='w-full py-2 bg-gray-100 border border-gray-300 outline-none rounded shadow'
               >
                 さらに表示する
               </button>
